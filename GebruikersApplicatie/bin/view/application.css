@@ -1,7 +1,7 @@
 
   .root {
   	
-  	-fx-base: #efefef;
+  	-fx-base: #eeefef;
   	
   	}
   	
@@ -63,7 +63,7 @@
 } 
 
 .selected {
-	  -fx-border-width: 1.4;
+	  -fx-border-width: 1.44;
 	     -fx-border-color:black;
 	
 	

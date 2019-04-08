@@ -24,6 +24,8 @@ public class Main extends Application {
 	public static ArrayList<Device> deviceList = new ArrayList<Device>();
 	public static ArrayList<Cluster> clusterList = new ArrayList<Cluster>();
 	public static ProxyOnsDomein ProxyOnsDomein = new ProxyOnsDomein();
+	public static Stage stage = new Stage();
+	public static Stage getStage() { return stage; }
 
 	public void start(Stage primaryStage) throws IOException, ClassNotFoundException, InterruptedException {
 
@@ -32,10 +34,14 @@ public class Main extends Application {
 
 		Parent root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 		Scene scene = new Scene(root, 800, 600);
-		primaryStage.setTitle("mijnD0Mein");
+		primaryStage.setTitle("mijnD0Mein  >> ");
 		primaryStage.setScene(scene);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage = primaryStage;
 		primaryStage.show();
+		
+		
+		
 
 		System.out.println(java.net.InetAddress.getLocalHost().getHostAddress());
 		ProxyOnsDomein.connectClientToServer("12");

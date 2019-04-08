@@ -5,7 +5,7 @@ import java.io.Serializable;
 import interfaces.Dimmable;
 
 @SuppressWarnings("serial")
-public class DimmableDevice extends Device implements Dimmable, Serializable {
+public class DimmableDevice extends AnalogDevice implements Dimmable, Serializable {
 
 	private int dimvalue = 100;
 

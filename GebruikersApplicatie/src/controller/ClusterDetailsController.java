@@ -54,9 +54,13 @@ public class ClusterDetailsController implements Initializable {
 	
 	
 
+	
 	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		Main.getStage()
+		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ClusterDetails.getDescription());
 				
 		for (Cluster cluster : clusterList) {
 			

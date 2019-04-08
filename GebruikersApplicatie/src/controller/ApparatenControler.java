@@ -26,6 +26,9 @@ public class ApparatenControler implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		Main.getStage()
+		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparatenView.getDescription());
 				
 		showDeviceList();
 
@@ -42,6 +45,8 @@ public class ApparatenControler implements Initializable {
 	
 	@FXML
 	protected void showApparaatToevoegen(ActionEvent event) throws IOException {
+		
+		
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatToevoegen.fxml"));
 		rootPane.getChildren().setAll(pane);

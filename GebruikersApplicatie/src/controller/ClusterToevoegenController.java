@@ -57,7 +57,7 @@ public class ClusterToevoegenController implements Initializable {
 			 return;
 			}
 
-		System.out.println(selectedDeviceList.size());
+		
 		Cluster cluster = new Cluster(name);
 		for (Device device : selectedDeviceList) {
 			int welke = deviceList.indexOf(device);
@@ -73,6 +73,9 @@ public class ClusterToevoegenController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		Main.getStage()
+		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ClusterDetails.getDescription() + " >> " + ScreenNames.ClusterToevoegen.getDescription());;
 
 		checkAmmount();
 		showDeviceList();

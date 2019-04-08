@@ -22,15 +22,28 @@ import view.Main;
 
 public class ApparaatDetailsController implements Initializable {
 
-	@FXML private Pane rootPane;
-	@FXML private Label deviceName;
-	@FXML private Label devicePort;
-	@FXML private Label deviceState;
-	@FXML private Label deviceActive;
-	@FXML private Button buttonOn;
-	@FXML private Slider slider;
-	@FXML private Button buttonOff;
-	@FXML private Label deviceType;
+	@FXML
+	private Pane rootPane;
+	@FXML
+	private Label deviceName;
+	@FXML
+	private Label devicePort;
+	@FXML
+	private Label deviceState;
+	@FXML
+	private Label deviceActive;
+	@FXML
+	private Button buttonOn;
+	@FXML
+	private Slider slider;
+	@FXML
+	private Button buttonOff;
+	@FXML
+	private Label deviceType;
+
+	public void setStageTitle(String newTitle) {
+		Main.getStage().setTitle(newTitle);
+	}
 
 	protected ArrayList<Device> deviceList = Main.deviceList;
 	DimmableDevice dm;
@@ -54,6 +67,9 @@ public class ApparaatDetailsController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		Main.getStage()
+				.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparaatDetails.getDescription());
 
 		buttonOn.setVisible(false);
 		buttonOff.setVisible(false);
@@ -87,11 +103,11 @@ public class ApparaatDetailsController implements Initializable {
 						buttonOff.setVisible(true);
 
 					}
-					
+
 					if (!device.getSwitchedOn()) {
-						
+
 						slider.setVisible(false);
-						
+
 					}
 
 				}
@@ -99,7 +115,8 @@ public class ApparaatDetailsController implements Initializable {
 
 		}
 
-		deviceType.setText(device.getClass().toGenericString());
+		deviceType.setText(device.getClass().getSimpleName() + "   (" +  device.getClass().getSuperclass().getSimpleName() + ")"); 
+				
 		deviceState.setText(String.valueOf(device.getSwitchedOn()));
 		deviceActive.setText(String.valueOf(device.isActivated()));
 		buttonOn.setDisable(device.getSwitchedOn());

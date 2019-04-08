@@ -32,6 +32,9 @@ public class ClusterInstellingenController  implements Initializable  {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		Main.getStage()
+		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ClusterDetails.getDescription() + " >> " + ScreenNames.ClusterInstellingen.getDescription());
+		
 		clusterName.toFront();
 		clusterName.setText(cluster.getName());
 		

@@ -28,6 +28,9 @@ public class ClusterController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		Main.getStage()
+		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ClusterView.getDescription());
 
 		showDeviceList();
 

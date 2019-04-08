@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +35,9 @@ public class ApparaatToevoegenControler implements Initializable {
 	private ComboBox<String> comboBox;
 	@FXML
 	private Button saveButton;
+	
+	
+
 
 	@FXML
 	protected void save(ActionEvent event) throws IOException {
@@ -41,7 +46,7 @@ public class ApparaatToevoegenControler implements Initializable {
 		String name = deviceName.textProperty().getValue();
 		int port = Integer.parseInt(devicePort.textProperty().getValue());
 
-		Main.deviceList.add(devicefactory.getDevice(selectedType, name, port));
+		Main.deviceList.add(devicefactory.getDevice(selectedType, name, port, false));
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
 		rootPane.getChildren().setAll(pane);
 
@@ -57,6 +62,9 @@ public class ApparaatToevoegenControler implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		Main.getStage()
+		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparaatDetails.getDescription() + " >> " + ScreenNames.ApparaatToevoegen.getDescription());
 
 		comboBox.getItems().setAll(
 				DeviceTypes.READONLY.getDescription(), 
@@ -70,6 +78,18 @@ public class ApparaatToevoegenControler implements Initializable {
 		saveButton.setDisable(checkForContent());
 		
 		deviceName.requestFocus();
+		
+		
+		
+		devicePort.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		        	devicePort.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
 		
 		deviceName.textProperty().addListener((observable, oldValue, newValue) -> {
 			saveButton.setDisable(!checkForContent());

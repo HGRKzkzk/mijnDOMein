@@ -52,6 +52,8 @@ public class MainScreenController implements Initializable  {
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Main.getStage()
+		.setTitle(ScreenNames.Prefix.getDescription());
 		
 		welcomeUser.setVisible(false);
 		String username = System.getProperty("user.name");

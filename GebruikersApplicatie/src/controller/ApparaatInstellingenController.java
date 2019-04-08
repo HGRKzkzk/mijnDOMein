@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -99,6 +101,9 @@ public class ApparaatInstellingenController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		Main.getStage()
+		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparaatDetails.getDescription() + " >> " + ScreenNames.ApparaatInstellingen.getDescription());
+		
 		if (!device.isActivated()) {
 			
 			deviceName.setDisable(true);
@@ -111,6 +116,16 @@ public class ApparaatInstellingenController implements Initializable {
 		
 		deviceName.toFront();
 		devicePort.toFront();
+		
+		devicePort.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		        	devicePort.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
 		
 		deviceName.setText(device.getName());
 		devicePort.setText(String.valueOf(device.getPort()));
