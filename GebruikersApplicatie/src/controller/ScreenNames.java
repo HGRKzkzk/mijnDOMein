@@ -7,12 +7,13 @@ public enum ScreenNames {
 	ApparaatDetails("Apparaat details"),
 	ApparaatInstellingen("Apparaat instellingen"),
 	ApparaatToevoegen("Apparaat toevoegen"),
-	ApparatenView("Apparaten overzicht"),
+	ApparatenView("Apparaten"),
 	ClusterDetails("Cluster details"),
 	ClusterInstellingen("Cluster instellingen"),
 	ClusterToevoegen("Cluster toevoegen"),
 	ClusterView("Clusters"),
-	MainScreen("");
+	MainScreen(""),
+	Settings("Instellingen");
 	
     private final String description;  
     

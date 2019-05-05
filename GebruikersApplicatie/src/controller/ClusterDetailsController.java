@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import model.Cluster;
+import model.Device;
 import view.Main;
 
 public class ClusterDetailsController implements Initializable {
@@ -31,8 +32,8 @@ public class ClusterDetailsController implements Initializable {
 
 	static String whichCluster = null;
 	
-	
-	protected ArrayList<Cluster> clusterList = Main.clusterList;
+	 private ArrayList<Cluster> clusterList = (ArrayList<Cluster>) ControllerData.clusterList;
+
 	protected static Cluster cluster;
 
 	@FXML

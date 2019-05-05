@@ -17,7 +17,7 @@ import view.Main;
 
 public class ApparatenControler implements Initializable {
 
-	protected ArrayList<Device> deviceList = Main.deviceList;
+	private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
 
 	static String whichDevice = null;
 
@@ -53,6 +53,17 @@ public class ApparatenControler implements Initializable {
 
 	}
 	
+	
+	
+	@FXML
+	protected void showApparaatVerwijderen(ActionEvent event) throws IOException {
+		
+		
+
+		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenVerwijderen.fxml"));
+		rootPane.getChildren().setAll(pane);
+
+	}
 	
 	
 	

@@ -8,12 +8,15 @@ import interfaces.PortHandler;
 @SuppressWarnings("serial")
 public abstract class Device implements Nameable, PortHandler, Serializable {
 
+	protected DeviceCommunicator dCom;
 	private String name;
 	private int port;
 	private boolean switchedOn;
 	private boolean activated;
 
 	public Device(String name, int port) {
+		
+		dCom = new DeviceCommunicator();
 		changePort(port);
 		changeName(name);
 		switchedOn = true;
@@ -24,12 +27,14 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	public void switchOn() {
 
 		this.switchedOn = true;
+		dCom.Switch(this);
 
 	}
 
 	public void switchOff() {
 
 		this.switchedOn = false;
+		dCom.Switch(this);
 
 	}
 
@@ -97,5 +102,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		return this.switchedOn;
 
 	}
+	
+	
 
 }

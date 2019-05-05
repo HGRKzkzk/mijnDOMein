@@ -22,7 +22,7 @@ import view.Main;
 
 public class ApparaatToevoegenControler implements Initializable {
 
-	protected ArrayList<Device> deviceList = Main.deviceList;
+	private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
 	private DeviceFactory devicefactory = new DeviceFactory();
 
 	@FXML
@@ -35,18 +35,27 @@ public class ApparaatToevoegenControler implements Initializable {
 	private ComboBox<String> comboBox;
 	@FXML
 	private Button saveButton;
-	
-	
-
 
 	@FXML
 	protected void save(ActionEvent event) throws IOException {
 
 		String selectedType = comboBox.getValue();
 		String name = deviceName.textProperty().getValue();
-		int port = Integer.parseInt(devicePort.textProperty().getValue());
 
-		Main.deviceList.add(devicefactory.getDevice(selectedType, name, port, false));
+		int port = 0;
+
+		try {
+			port = Integer.parseInt(devicePort.textProperty().getValue());
+		} catch (NumberFormatException e) {
+			System.out.println("not a number");
+			return;
+		}
+
+		if (!ApplicationCommon.possiblePort(port)) {
+			return;
+		}
+
+		deviceList.add(devicefactory.getDevice(selectedType, name, port, false));
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
 		rootPane.getChildren().setAll(pane);
 
@@ -62,43 +71,42 @@ public class ApparaatToevoegenControler implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		Main.getStage()
-		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparaatDetails.getDescription() + " >> " + ScreenNames.ApparaatToevoegen.getDescription());
 
-		comboBox.getItems().setAll(
-				DeviceTypes.READONLY.getDescription(), 
-				DeviceTypes.SWITCHABLE.getDescription(),
-				DeviceTypes.DIMMABLE.getDescription());
-		
+		Main.getStage()
+				.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparaatToevoegen.getDescription());
+
+		for (int i = 0; i < DeviceTypes.values().length; i++) {
+
+			String deviceDescription = DeviceTypes.values()[i].getDescription().toString();
+
+			comboBox.getItems().add(deviceDescription);
+		}
+
 		comboBox.getSelectionModel().select(0);
 		comboBox.toFront();
 		deviceName.toFront();
 		devicePort.toFront();
 		saveButton.setDisable(checkForContent());
-		
+
 		deviceName.requestFocus();
-		
-		
-		
+
 		devicePort.textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
-		        String newValue) {
-		        if (!newValue.matches("\\d*")) {
-		        	devicePort.setText(newValue.replaceAll("[^\\d]", ""));
-		        }
-		    }
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					devicePort.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
 		});
-		
+
 		deviceName.textProperty().addListener((observable, oldValue, newValue) -> {
 			saveButton.setDisable(!checkForContent());
-		    
+
 		});
-		
+
 		devicePort.textProperty().addListener((observable, oldValue, newValue) -> {
 			saveButton.setDisable(!checkForContent());
-		    
+
 		});
 
 	}
@@ -106,7 +114,7 @@ public class ApparaatToevoegenControler implements Initializable {
 	public boolean checkForContent() {
 
 		if (deviceName.getLength() >= 0 && devicePort.getLength() >= 0) {
-			
+
 			return true;
 
 		}

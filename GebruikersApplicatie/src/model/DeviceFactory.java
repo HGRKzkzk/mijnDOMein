@@ -1,27 +1,22 @@
 package model;
 
 public class DeviceFactory {
-	
-	
-	
-	 public Device getDevice(String devicetype, String name, int port, boolean analoog) {
-		 	
-		 		
-		 switch(devicetype) {
- 
-		 case "Alleen uitleesbaar": 
-			 return new ReadableDevice(name, port);
 
-		 case "Schakelbaar": 
-			 return new SwitchableDevice(name, port);
+	public Device getDevice(String devicetype, String name, int port, boolean analoog) {
 
-		 case "Dimbaar": 
-			 return new DimmableDevice(name, port);	 
+		if (devicetype == DeviceTypes.READONLY.getDescription()) {
+			return new ReadableDevice(name, port);
+			
+		} else if (devicetype == DeviceTypes.SWITCHABLE.getDescription()) {
+			return new SwitchableDevice(name, port);
 
-		 }
+		} else if (devicetype == DeviceTypes.DIMMABLE.getDescription()) {
+			return new DimmableDevice(name, port);
 
-		 return null; 
-	 }
-	        
+		}
+
+		return new ReadableDevice(name, port);
+
+	}
 
 }

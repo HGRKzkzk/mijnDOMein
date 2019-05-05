@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import interfaces.Nameable;
 import interfaces.Switchable;
@@ -11,7 +12,7 @@ import view.Main;
 public class Cluster implements Serializable, Nameable, Switchable {
 
 	private String name;
-	private ArrayList<Device> devicesInCLuster = new ArrayList<Device>();
+	private List<Device> devicesInCLuster = new ArrayList<Device>();
 	private boolean switchedOn;
 	private boolean activated;
 
@@ -38,17 +39,17 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		for (Device device : devicesInCLuster) {
 			if (device.isActivated())
 				device.switchOn();
-			
+
 		}
-		
+
 		this.switchedOn = true;
 
 	}
 
 	public void switchOff() {
-		
+
 		for (Device device : devicesInCLuster) {
-				if (device.isActivated())
+			if (device.isActivated())
 				device.switchOff();
 
 		}
@@ -72,7 +73,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	}
 
-	public ArrayList<Device> getDevicesInCLuster() {
+	public List<Device> getDevicesInCLuster() {
 		return devicesInCLuster;
 	}
 
@@ -113,12 +114,11 @@ public class Cluster implements Serializable, Nameable, Switchable {
 			return true;
 		return false;
 	}
-	
-	public void updateIsOn() { //TODO: overbodige checker, refactoreren, functionaliteit is zo dubbel.
-		
+
+	public void updateIsOn() { // TODO: overbodige checker, refactoreren, functionaliteit is zo dubbel.
+
 		this.switchedOn = giveCurrentValue();
-		
-		
+
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		}
 
 		if (switchedonCount > (devicesInCLuster.size() / 2))
-			return true; // true als tenminste  de helft van de apparaten in de cluster aan staat
+			return true; // true als tenminste de helft van de apparaten in de cluster aan staat
 
 		return false;
 

@@ -23,7 +23,7 @@ import view.Main;
 
 public class ApparaatInstellingenController implements Initializable {
 
-	protected ArrayList<Device> deviceList = Main.deviceList;
+	private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
 
 	@FXML
 	private GridPane rootPane;
@@ -33,47 +33,57 @@ public class ApparaatInstellingenController implements Initializable {
 
 	@FXML
 	private TextField devicePort;
-	
+
 	@FXML
 	private Button saveButton;
-	
+
 	@FXML
 	private Button removeButton;
-	
+
 	@FXML
 	private Button deactivateButton;
 
-	
-
-	Device device = ApparaatDetailsController.device;
+	private Device device = ApparaatDetailsController.getDevice();
 
 	@FXML
 	protected void removedevice(ActionEvent event) throws IOException {
-		
-		
+
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Apparaat verwijderen?");
 		alert.setHeaderText("");
 		alert.setContentText("Weet je zeker dat je dit apparaat wilt verwijderen?");
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 
-			Main.deviceList.remove(device);
+			deviceList.remove(device);
 			GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
 			rootPane.getChildren().setAll(pane);
 		} else {
-		    return;
+			return;
 		}
-		
-		
 
 	}
-	
+
 	@FXML
 	protected void savedevice(ActionEvent event) throws IOException {
+
+		int port = 0;
+
+		try {
+			port = Integer.parseInt(devicePort.textProperty().getValue());
+		} catch (NumberFormatException e) {
+			System.out.println("not a number");
+			return;
+		}
+
+		if (!ApplicationCommon.possiblePort(port)) {
+			return;
+		}
+
 		device.changeName(deviceName.textProperty().getValue());
 		device.changePort(Integer.parseInt(devicePort.textProperty().getValue()));
+
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
 		rootPane.getChildren().setAll(pane);
 
@@ -86,8 +96,7 @@ public class ApparaatInstellingenController implements Initializable {
 		rootPane.getChildren().setAll(pane);
 
 	}
-	
-	
+
 	@FXML
 	protected void deactivate(ActionEvent event) throws IOException {
 		device.setActivated(!device.isActivated());
@@ -95,42 +104,39 @@ public class ApparaatInstellingenController implements Initializable {
 		rootPane.getChildren().setAll(pane);
 
 	}
-	
-	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		Main.getStage()
-		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparaatDetails.getDescription() + " >> " + ScreenNames.ApparaatInstellingen.getDescription());
-		
+				.setTitle(ScreenNames.Prefix.getDescription() + " " +  ScreenNames.ApparaatInstellingen.getDescription());
+
 		if (!device.isActivated()) {
-			
+
 			deviceName.setDisable(true);
 			devicePort.setDisable(true);
 			removeButton.setDisable(true);
 			saveButton.setDisable(true);
 			deactivateButton.setText("Activeren");
-			
+
 		}
-		
+
 		deviceName.toFront();
 		devicePort.toFront();
-		
+
 		devicePort.textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
-		        String newValue) {
-		        if (!newValue.matches("\\d*")) {
-		        	devicePort.setText(newValue.replaceAll("[^\\d]", ""));
-		        }
-		    }
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					devicePort.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
 		});
-		
+
 		deviceName.setText(device.getName());
 		devicePort.setText(String.valueOf(device.getPort()));
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

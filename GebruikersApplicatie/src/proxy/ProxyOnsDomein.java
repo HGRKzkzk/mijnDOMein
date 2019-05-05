@@ -25,7 +25,7 @@ ConnectionSettings conSettings = new ConnectionSettings();
 
 		} catch (IOException e) {
 
-			System.out.println("Kan geen verbinding maken.");
+			System.out.println("Kan geen verbinding met de server maken.");
 			try {
 				socket.close();
 			} catch (IOException e1) {
@@ -51,7 +51,7 @@ ConnectionSettings conSettings = new ConnectionSettings();
 			if (reaction.equals("Who are you?")) {
 				reactionFromServer = false;
 				outServer.println(client_id);
-				System.out.println(client_id);
+				// System.out.println(client_id);
 				outServer.flush();
 			}
 		}
@@ -72,16 +72,17 @@ ConnectionSettings conSettings = new ConnectionSettings();
 	 * @throws IOException, this method can produce a IOException, always use in
 	 *                      Try/catch block
 	 */
-	public boolean connectClientToServer(String client_id) {
+	public boolean connectClientToServer() {
 
-		if (connectToServer(client_id)) {
+		if (connectToServer(conSettings.app_ID)) {
 			System.out.println("Verbinding met server gemaakt!");
 			return true;
 		}
-		System.out.println("Geen verbinding met server gemaakt.");
+		// System.out.println("Geen verbinding met server gemaakt.");
 		return false;
 	}
 
+	
 	/**
 	 * Method for GA to use. Used for sending requests to HC
 	 * 
@@ -91,9 +92,12 @@ ConnectionSettings conSettings = new ConnectionSettings();
 	 * @return String with the response from receiver to requester (HC responds to
 	 *         GA)
 	 */
-	public String sendRequest(String requestFromId, String requestForId, String message) {
-
+	public String sendRequest(String message) {
+		
+		String requestFromId = conSettings.app_ID;
+		String requestForId = conSettings.app_ID;
 		String request = requestFromId + ";" + requestForId + ";" + message;
+		System.out.println(request);
 		outServer.println(request);
 		outServer.flush();
 		return receiveRequest();
@@ -118,6 +122,10 @@ ConnectionSettings conSettings = new ConnectionSettings();
 	 * @return string, String with: 1) a request for a HC 2) the response from HC
 	 */
 	public String receiveRequest() {
-		return inServer.nextLine();
+		if(inServer.hasNextLine()) {
+			return inServer.nextLine();	
+		}
+		return "Geen reactie van server.";
+		
 	}
 }

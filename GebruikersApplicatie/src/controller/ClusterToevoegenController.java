@@ -27,8 +27,9 @@ public class ClusterToevoegenController implements Initializable {
 	@FXML
 	private Button saveButton;
 
-	protected ArrayList<Device> deviceList = Main.deviceList;
-	protected ArrayList<Cluster> clusterList = Main.clusterList;
+	private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
+	private ArrayList<Cluster> clusterList = (ArrayList<Cluster>) ControllerData.clusterList;
+
 
 	protected ArrayList<Device> selectedDeviceList = new ArrayList<Device>();
 
@@ -60,11 +61,11 @@ public class ClusterToevoegenController implements Initializable {
 		
 		Cluster cluster = new Cluster(name);
 		for (Device device : selectedDeviceList) {
-			int welke = deviceList.indexOf(device);
-			cluster.addDeviceToCluser(deviceList.get(welke));
+			cluster.addDeviceToCluser(deviceList.get
+					(deviceList.indexOf(device)));
 		}
 
-		Main.clusterList.add(cluster);
+		clusterList.add(cluster);
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ClusterView.fxml"));
 		rootPane.getChildren().setAll(pane);
@@ -75,7 +76,7 @@ public class ClusterToevoegenController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		Main.getStage()
-		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ClusterDetails.getDescription() + " >> " + ScreenNames.ClusterToevoegen.getDescription());;
+		.setTitle(ScreenNames.Prefix.getDescription() + " " +   ScreenNames.ClusterToevoegen.getDescription());
 
 		checkAmmount();
 		showDeviceList();

@@ -13,7 +13,7 @@ alignment="center" hgap="5" vgap="5" >
 
 		<VBox spacing="5">
 		
-		<Label fx:id="welcomeUser" text="Welkom terug, "/>
+		
 <Label text=" "/>
 <Label text=" "/>
 		
@@ -22,6 +22,14 @@ alignment="center" hgap="5" vgap="5" >
         		GridPane.columnIndex="1" GridPane.rowIndex="1"/>
  
 			    <Button fx:id="clusters" text="Clusters:" onAction="#clusterKnop"
+        		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        		
+        		
+		 	<!--    <Button fx:id="settings" text="Instellingen" onAction="#mainSettings"
+        		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+          -->
+        		
+        		 <Button fx:id="exit" text="Afsluiten" onAction="#exit"
         		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
  	   </VBox>
 

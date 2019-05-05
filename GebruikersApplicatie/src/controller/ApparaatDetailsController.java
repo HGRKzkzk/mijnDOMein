@@ -45,9 +45,9 @@ public class ApparaatDetailsController implements Initializable {
 		Main.getStage().setTitle(newTitle);
 	}
 
-	protected ArrayList<Device> deviceList = Main.deviceList;
-	DimmableDevice dm;
-	protected static Device device;
+	private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
+	protected DimmableDevice dm;
+	private static Device device;
 
 	@FXML
 	protected void back(ActionEvent event) throws IOException {
@@ -80,7 +80,7 @@ public class ApparaatDetailsController implements Initializable {
 		for (Device device : deviceList) {
 
 			if (device.getName() == ApparatenControler.whichDevice) {
-				ApparaatDetailsController.device = device;
+				this.setDevice(device);
 				this.devicePort.setText(String.valueOf(device.getPort()));
 
 				if (device.isActivated()) {
@@ -92,7 +92,8 @@ public class ApparaatDetailsController implements Initializable {
 						// slider.setShowTickLabels(true);
 
 						slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-							dm.setDimvalue(newValue.intValue());
+							
+							dm.setDimValue(newValue.intValue());
 
 						});
 
@@ -115,18 +116,18 @@ public class ApparaatDetailsController implements Initializable {
 
 		}
 
-		deviceType.setText(device.getClass().getSimpleName() + "   (" +  device.getClass().getSuperclass().getSimpleName() + ")"); 
+		deviceType.setText(getDevice().getClass().getSimpleName() + "   (" +  getDevice().getClass().getSuperclass().getSimpleName() + ")"); 
 				
-		deviceState.setText(String.valueOf(device.getSwitchedOn()));
-		deviceActive.setText(String.valueOf(device.isActivated()));
-		buttonOn.setDisable(device.getSwitchedOn());
-		buttonOff.setDisable(!device.getSwitchedOn());
+		deviceState.setText(String.valueOf(getDevice().getSwitchedOn()));
+		deviceActive.setText(String.valueOf(getDevice().isActivated()));
+		buttonOn.setDisable(getDevice().getSwitchedOn());
+		buttonOff.setDisable(!getDevice().getSwitchedOn());
 
 	}
 
 	@FXML
 	protected void switchOn(ActionEvent event) throws IOException {
-		device.switchOn();
+		getDevice().switchOn();
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatDetails.fxml"));
 		rootPane.getChildren().setAll(pane);
@@ -136,7 +137,7 @@ public class ApparaatDetailsController implements Initializable {
 	@FXML
 	protected void switchOff(ActionEvent event) throws IOException {
 
-		device.switchOff();
+		getDevice().switchOff();
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatDetails.fxml"));
 		rootPane.getChildren().setAll(pane);
@@ -145,6 +146,14 @@ public class ApparaatDetailsController implements Initializable {
 
 	public void backToApparatenView() {
 
+	}
+
+	public static Device getDevice() {
+		return device;
+	}
+
+	public void setDevice(Device device) {
+		ApparaatDetailsController.device = device;
 	}
 
 }

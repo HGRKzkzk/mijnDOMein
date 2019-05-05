@@ -6,18 +6,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="rootPane" fx:controller="controller.ApparatenControler" 
-    xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="5" vgap="5" >
+<GridPane fx:id="rootPane"
+	fx:controller="controller.ApparatenControler"
+	xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="5" vgap="5">
 
 
-       
- 
- <Button text="Toevoegen" onAction="#showApparaatToevoegen"
-        GridPane.columnIndex="0" GridPane.rowIndex="1"/>
- 
-    <Button text="Terug" onAction="#back"
-        GridPane.columnIndex="0" GridPane.rowIndex="2"/>
- 
+
+
+	<Button text="Toevoegen" onAction="#showApparaatToevoegen"
+		GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+	<!-- <Button text="Verwijderen" onAction="#showApparaatVerwijderen" GridPane.columnIndex="1" 
+		GridPane.rowIndex="1"/> -->
+
+	<Button text="Terug" onAction="#back" GridPane.columnIndex="0"
+		GridPane.rowIndex="2" />
+
 
 
 

@@ -18,6 +18,8 @@ public class DimmableDevice extends AnalogDevice implements Dimmable, Serializab
 	public void setDimValue(int newvalue) {
 		this.dimvalue = newvalue;
 
+		dCom.Alter(this);
+
 	}
 
 	@Override
@@ -28,10 +30,6 @@ public class DimmableDevice extends AnalogDevice implements Dimmable, Serializab
 
 	public int getDimvalue() {
 		return dimvalue;
-	}
-
-	public void setDimvalue(int dimvalue) {
-		this.dimvalue = dimvalue;
 	}
 
 	@Override

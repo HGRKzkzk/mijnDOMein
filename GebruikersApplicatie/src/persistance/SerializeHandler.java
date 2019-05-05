@@ -9,16 +9,23 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import controller.ControllerData;
 import model.Device;
 import model.Cluster;
 import view.Main;
 
 public class SerializeHandler {
-
-	private ArrayList<Device> deviceList = Main.deviceList;
-	private ArrayList<Cluster> clusterList = Main.clusterList;
+	
+	private ArrayList<Device> deviceList = new ArrayList<Device>();
+	private ArrayList<Cluster> clusterList = new ArrayList<Cluster>();
+	
 
 	public void saveAsSerializedData() {
+		
+		deviceList = (ArrayList<Device>) Main.getGa().getDeviceList();
+	 	clusterList = (ArrayList<Cluster>) Main.getGa().getClusterList();
 
 		saveDeviceList();
 		saveClusterList();
@@ -26,7 +33,8 @@ public class SerializeHandler {
 	}
 
 	public void saveDeviceList() {
-		deviceList = Main.deviceList;
+		
+		
 		String naam = "devices";
 		File file = new File(naam);
 
@@ -56,7 +64,7 @@ public class SerializeHandler {
 	}
 
 	public void saveClusterList() {
-		clusterList = Main.clusterList;
+		
 		String naam = "clusters";
 		File file = new File(naam);
 
@@ -93,7 +101,7 @@ public class SerializeHandler {
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Cluster> loadClusterList()
+	public List<Cluster> loadClusterList()
 			throws FileNotFoundException, ClassNotFoundException, InvalidClassException {
 		ArrayList<Cluster> clusterlist = new ArrayList<Cluster>();
 		String naam = "clusters";
@@ -126,7 +134,7 @@ public class SerializeHandler {
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Device> loadDeviceList() {
+	public List<Device> loadDeviceList() {
 		ArrayList<Device> deviceList = new ArrayList<Device>();
 		String naam = "devices";
 		File file = new File(naam);
@@ -134,8 +142,10 @@ public class SerializeHandler {
 		try {
 			fileInputStream = new FileInputStream(file);
 		} catch (FileNotFoundException e1) {
+				
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return null;
 		}
 
 		ObjectInputStream objectInputStream = null;
