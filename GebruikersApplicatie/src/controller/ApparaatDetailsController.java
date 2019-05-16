@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import interfaces.Dimmable;
+import interfaces.Switchable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -127,7 +128,7 @@ public class ApparaatDetailsController implements Initializable {
 
 	@FXML
 	protected void switchOn(ActionEvent event) throws IOException {
-		getDevice().switchOn();
+		 getDevice().setSwitchedOn(true);
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatDetails.fxml"));
 		rootPane.getChildren().setAll(pane);
@@ -137,7 +138,7 @@ public class ApparaatDetailsController implements Initializable {
 	@FXML
 	protected void switchOff(ActionEvent event) throws IOException {
 
-		getDevice().switchOff();
+		 getDevice().setSwitchedOn(false);
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatDetails.fxml"));
 		rootPane.getChildren().setAll(pane);

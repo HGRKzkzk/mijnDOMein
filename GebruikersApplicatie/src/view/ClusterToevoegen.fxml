@@ -14,6 +14,8 @@
  
  <Button text="Opslaan" fx:id="saveButton" onAction="#saveCluster"
         GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        
+        
  
     <Button text="Terug" onAction="#back"
         GridPane.columnIndex="0" GridPane.rowIndex="2"/>

@@ -5,45 +5,46 @@ import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.ControllerData;
 import jserial.jSerialcomm;
 import persistance.SerializeHandler;
 
 public class GebruikersApplicatie {
 
 	private SerializeHandler SerializeHandler = new SerializeHandler();
-	private List deviceList = new ArrayList<Device>();
-	private List clusterList = new ArrayList<Cluster>();
-	private boolean directToArduino = true;
+	private DeviceCommunicator DeviceCommunicator = new DeviceCommunicator(this);
+
+	private List<Device> deviceList = new ArrayList<Device>();
+	private List<Cluster> clusterList = new ArrayList<Cluster>();
+	private boolean directToArduino = false;
 
 	public GebruikersApplicatie() {
-		
-		System.out.println("Direct to Arduino mode is: " + directToArduino );
-		if(directToArduino) {
-			
-			System.out.println("No data wil be send to server.");}
-		if(!jSerialcomm.connect()) {
-			System.out.println("Arduino not found, no external communication possible. Connect Arduino or change settings.");}
-		
-	
 
 		try {
-
 			setDeviceList(SerializeHandler.loadDeviceList());
 			setClusterList(SerializeHandler.loadClusterList());
-		} catch (InvalidClassException e) {
+		} catch (InvalidClassException | FileNotFoundException | ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
+		}
+
+		System.out.println("Direct to Arduino mode is: " + directToArduino);
+		if (directToArduino) {
+
+			System.out.println("No data wil be send to server.");
+		}
+		if (!jSerialcomm.connect() & directToArduino) {
+			System.out.println(
+					"Arduino not found, no external communication possible. Connect Arduino or change settings.");
 		}
 
 		
-
+ 
+		 DeviceCommunicator.requestConfigFromServer();
+		DeviceCommunicator.pushConfigToServer();
+	}
+	
+	public DeviceCommunicator getDcom() {
+		return DeviceCommunicator;
 	}
 
 	public boolean isDirectToArduino() {
@@ -54,19 +55,19 @@ public class GebruikersApplicatie {
 		this.directToArduino = directToArduino;
 	}
 
-	public List getClusterList() {
+	public List<Cluster> getClusterList() {
 		return clusterList;
 	}
 
-	public void setClusterList(List clusterList) {
+	public void setClusterList(List<Cluster> clusterList) {
 		this.clusterList = clusterList;
 	}
 
-	public List getDeviceList() {
+	public List<Device> getDeviceList() {
 		return deviceList;
 	}
 
-	public void setDeviceList(List deviceList) {
+	public void setDeviceList(List<Device> deviceList) {
 		this.deviceList = deviceList;
 	}
 

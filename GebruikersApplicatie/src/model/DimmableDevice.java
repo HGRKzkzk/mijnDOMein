@@ -14,11 +14,16 @@ public class DimmableDevice extends AnalogDevice implements Dimmable, Serializab
 
 	}
 
+	public DimmableDevice(String naam, int pin, boolean switchedon, boolean active) {
+		super(naam, pin, switchedon, active);
+	 
+	}
+
 	@Override
 	public void setDimValue(int newvalue) {
 		this.dimvalue = newvalue;
 
-		dCom.Alter(this);
+		dCom.altervalue(this);
 
 	}
 
@@ -43,5 +48,33 @@ public class DimmableDevice extends AnalogDevice implements Dimmable, Serializab
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+
+	public void switchOn() {
+
+		this.switchedOn = true;
+		dCom.flipswitch(this);
+
+	}
+
+	public void switchOff() {
+
+		this.switchedOn = false;
+		dCom.flipswitch(this);
+
+	}
+
+	public void setSwitchedOn(boolean b) {
+		this.switchedOn = b;
+		dCom.flipswitch(this);
+		
+	}
+
+	@Override
+	public boolean getSwitchedOn() {
+		
+		return this.switchedOn;
+	}
+ 
 
 }

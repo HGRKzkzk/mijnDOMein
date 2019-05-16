@@ -4,9 +4,9 @@ public class ConnectionSettings {
 	
 	protected int PORT = 8888;
 	protected int timeout = 250;
-	protected final String SERVER_IP = "192.168.1.104";
-	protected final String app_ID = "234";
-	
+	protected String SERVER_IP = "192.168.1.100";
+	protected String app_ID = "234";
+	protected String receiver_ID = "134";	
 	
 	
 	public void setServerTimeOut(int ms) {

@@ -6,7 +6,6 @@ import java.util.List;
 
 import interfaces.Nameable;
 import interfaces.Switchable;
-import view.Main;
 
 @SuppressWarnings("serial")
 public class Cluster implements Serializable, Nameable, Switchable {
@@ -36,6 +35,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 	}
 
 	public void switchOn() {
+		System.out.println("CLuster aanzetten");
 		for (Device device : devicesInCLuster) {
 			if (device.isActivated())
 				device.switchOn();
@@ -47,7 +47,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 	}
 
 	public void switchOff() {
-
+		System.out.println("CLuster uitzetten");
 		for (Device device : devicesInCLuster) {
 			if (device.isActivated())
 				device.switchOff();
@@ -137,5 +137,9 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		return false;
 
 	}
+	
+	
+ 
+
 
 }

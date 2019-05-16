@@ -11,8 +11,8 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	protected DeviceCommunicator dCom;
 	private String name;
 	private int port;
-	private boolean switchedOn;
-	private boolean activated;
+	protected boolean switchedOn;
+	protected boolean activated;
 
 	public Device(String name, int port) {
 		
@@ -23,20 +23,20 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		activated = true;
 
 	}
-
-	public void switchOn() {
-
-		this.switchedOn = true;
-		dCom.Switch(this);
-
-	}
-
-	public void switchOff() {
-
-		this.switchedOn = false;
-		dCom.Switch(this);
+	
+	
+	public Device(String name, int port, boolean on, boolean active) {
+		
+		dCom = new DeviceCommunicator();
+		changePort(port);
+		changeName(name);
+		switchedOn = on;
+		System.out.println(active);
+		activated = active;
 
 	}
+
+ 
 
 	public boolean isActivated() {
 		return activated;
@@ -59,7 +59,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	public boolean validatePort(int port) {
 		if (port < maxPort && port > minPort)
 			return true;
-		return true;
+		return false;
 
 	}
 
@@ -97,12 +97,22 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	}
 
-	public boolean getSwitchedOn() {
+	public abstract boolean getSwitchedOn();
 
-		return this.switchedOn;
 
-	}
-	
+
+	public abstract void setSwitchedOn(boolean b);
+
+
+
+	protected abstract void switchOn();
+
+
+
+	protected abstract void switchOff();
+
+
+ 
 	
 
 }

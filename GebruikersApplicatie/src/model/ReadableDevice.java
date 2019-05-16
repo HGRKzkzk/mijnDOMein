@@ -9,6 +9,30 @@ public class ReadableDevice extends Device implements Serializable {
 		super(name, port);
 		
 	}
+
+	@Override
+	public boolean getSwitchedOn() {
+		 
+		return false;
+	}
+
+	@Override
+	public void setSwitchedOn(boolean b) {
+		 
+		
+	}
+
+	@Override
+	protected void switchOn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void switchOff() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

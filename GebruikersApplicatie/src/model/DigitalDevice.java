@@ -10,4 +10,8 @@ public abstract class DigitalDevice extends Device implements Serializable{
 		
 	}
 
+	public DigitalDevice(String naam, int pin, boolean switchedon, boolean active) {
+		super(naam, pin, switchedon, active);
+	}
+
 }

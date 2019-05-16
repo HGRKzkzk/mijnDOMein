@@ -1,22 +1,14 @@
 package view;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import controller.ApplicationCommon;
 import controller.ControllerData;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import jserial.jSerialcomm;
-import model.Cluster;
-import model.Device;
 import model.GebruikersApplicatie;
-import persistance.SerializeHandler;
-import proxy.ProxyOnsDomein;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -49,13 +41,13 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage = primaryStage;
-
+	  
 		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent e) {
-
+				gebruikersApplicatie.getDcom().pushConfigToServer();
 				ApplicationCommon.exit();
 
 			}

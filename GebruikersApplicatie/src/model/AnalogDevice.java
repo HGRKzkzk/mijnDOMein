@@ -9,5 +9,10 @@ public abstract class AnalogDevice extends Device implements Serializable {
 		super(name, port);
 		
 	}
+	
+	
+	public AnalogDevice(String naam, int pin, boolean switchedon, boolean active) {
+		super(naam, pin, switchedon, active);
+	}
 
 }

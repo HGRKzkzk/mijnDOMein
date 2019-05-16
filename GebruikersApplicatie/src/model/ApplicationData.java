@@ -7,9 +7,9 @@ import persistance.SerializeHandler;
 
 public class ApplicationData {
 	
-	SerializeHandler SerializeHandler = new SerializeHandler();
-	List deviceList = new ArrayList<Device>();
-	List clusterList = new ArrayList<Cluster>();
+	// SerializeHandler SerializeHandler = new SerializeHandler();
+	protected List<Device> deviceList = new ArrayList<Device>();
+	protected List<Cluster> clusterList = new ArrayList<Cluster>();
 	
 
 }
