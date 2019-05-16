@@ -47,12 +47,7 @@ public class DeviceCommunicator implements Serializable {
 		if (proxy.connectClientToServer()) {
 
 			response = proxy.sendRequest("getConfig", " ");
-			
 			System.out.println("Response: " + response);
-			
-		
-			
-
 			response = response.replace(INTERSECTION, " ");
 			response = response.replace(STR_START, "");
 			response = response.replace("STR_STOP", "");

@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
 
-	public static String FXMLLocation = "/view/";
+	public final static String FXMLLocation = "/view/";
 	private static Stage stage = new Stage();
 	private int horizontalresolution = 800;
 	private int verticalresolution = 600;

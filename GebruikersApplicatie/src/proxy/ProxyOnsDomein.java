@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class ProxyOnsDomein {
 	final String SERVER_IP = conSettings.SERVER_IP;
  
 	@SuppressWarnings("resource")
-	private void connectWithServer(String client_id) {
+	private boolean connectWithServer(String client_id) {
 	
 
 		InputStream inStream = null;
@@ -33,7 +34,14 @@ public class ProxyOnsDomein {
 			inStream = s.getInputStream();
 			outStream = s.getOutputStream();
 
-		} catch (UnknownHostException e) {
+		}
+		
+		catch (SocketTimeoutException e) {
+			System.out.println("Time-out opgetreden in verbinding met server.");
+			return false;
+		}
+		
+		catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -55,14 +63,15 @@ public class ProxyOnsDomein {
 				outServer.flush();
 			}
 		}
+		return true;
 
 	}
 
 
 	public boolean connectClientToServer() {
 		String client_id = conSettings.app_ID;
-		connectWithServer(client_id);
-		return true;
+		if (connectWithServer(client_id)) return true; 
+		return false;
 	}
  
 	public String sendRequest(String command, String message) {
@@ -77,6 +86,8 @@ public class ProxyOnsDomein {
 
 	 
 	public void closeConnection() {
+	if((inServer ==  null || outServer == null)) return;
+	
 		inServer.close();
 		outServer.close();
 	}
