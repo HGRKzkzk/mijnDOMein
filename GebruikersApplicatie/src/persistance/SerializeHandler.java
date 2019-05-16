@@ -27,7 +27,7 @@ public class SerializeHandler {
 		deviceList = (ArrayList<Device>) Main.getGa().getDeviceList();
 	 	clusterList = (ArrayList<Cluster>) Main.getGa().getClusterList();
 
-		saveDeviceList();
+		// saveDeviceList();
 		saveClusterList();
 
 	}
@@ -96,7 +96,7 @@ public class SerializeHandler {
 	public void loadFromSerializedData() throws FileNotFoundException, InvalidClassException, ClassNotFoundException {
 
 		loadClusterList();
-		loadDeviceList();
+		// loadDeviceList();
 
 	}
 
