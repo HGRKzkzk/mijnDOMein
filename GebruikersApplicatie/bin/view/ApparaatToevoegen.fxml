@@ -12,13 +12,20 @@
 	xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10"
 	vgap="10">
 
-	<ComboBox fx:id="comboBox" 
-		GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
+<Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+	<ComboBox fx:id="comboBox" 
+		GridPane.columnIndex="1" GridPane.rowIndex="0" />
+		
+		
+<Label text="Naam" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 	<TextField  promptText="Apparaat naam" fx:id="deviceName"
-		GridPane.columnIndex="0" GridPane.rowIndex="1" />
+		GridPane.columnIndex="1" GridPane.rowIndex="1" />
+		
+
+<Label text="Poort" GridPane.columnIndex="0" GridPane.rowIndex="2"/>		
 	<TextField promptText="Gebruikte poort" fx:id="devicePort"
-		GridPane.columnIndex="0" GridPane.rowIndex="2" />
+		GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
 	<Button text="Terug" onAction="#back" GridPane.columnIndex="0"
 		GridPane.rowIndex="3" />

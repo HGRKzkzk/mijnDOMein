@@ -20,6 +20,8 @@ public class DeviceFactory {
 	}
 
 	public Device getDevice(String[] tempArray2) {
+		
+		
 
 		String type = tempArray2[0];
 		String naam = tempArray2[1];

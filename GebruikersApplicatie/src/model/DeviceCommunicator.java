@@ -15,13 +15,14 @@ public class DeviceCommunicator implements Serializable {
 	transient DeviceFactory dfac = new DeviceFactory();
 	transient ProxyOnsDomein proxy;
 	transient GebruikersApplicatie ga;
-	transient String boodschap;
+	transient String configMsg;
 	transient final String SPACER = "_";
 	transient final String INTERSECTION = ">><<";
 	transient final String STR_START = "[<<";
 	transient final String STR_STOP = ">>]";
 	transient final String MSG_START = "<<";
 	transient final String MSG_STOP = ">>";
+	transient final String NIHIL = "[]";
 	
 	
 	public DeviceCommunicator() {
@@ -37,6 +38,8 @@ public class DeviceCommunicator implements Serializable {
 		System.out.println("Status van alle aangesloten apparaten opvragen.");
 		System.out.println("-> server");
 		String response;
+		
+		
 		if (proxy == null) {
 			proxy = new ProxyOnsDomein();
 		}
@@ -44,7 +47,11 @@ public class DeviceCommunicator implements Serializable {
 		if (proxy.connectClientToServer()) {
 
 			response = proxy.sendRequest("getConfig", " ");
+			
 			System.out.println("Response: " + response);
+			
+		
+			
 
 			response = response.replace(INTERSECTION, " ");
 			response = response.replace(STR_START, "");
@@ -58,9 +65,8 @@ public class DeviceCommunicator implements Serializable {
 
 			for (String s : tempArray) {
 				String[] tempArray2 = s.split(SPACER);
-
+				if (tempArray[0].contentEquals(NIHIL)) return;
 				Device d = dfac.getDevice(tempArray2);
-
 				ga.getDeviceList().add(d);
 
 			}
@@ -74,7 +80,7 @@ public class DeviceCommunicator implements Serializable {
 
 	public void pushConfigToServer() {
 
-		boodschap = "[";
+		configMsg = "[";
 		System.out.println("Status van alle aangesloten apparaten verzenden.");
 		System.out.println("-> server");
 	 
@@ -88,11 +94,11 @@ public class DeviceCommunicator implements Serializable {
 			int port = d.getPort();
 			boolean isOn = d.getSwitchedOn();
 			boolean isActive = d.isActivated();
-			boodschap += MSG_START + type + SPACER + name + SPACER + port + SPACER + isOn + SPACER + isActive + MSG_STOP;
+			configMsg += MSG_START + type + SPACER + name + SPACER + port + SPACER + isOn + SPACER + isActive + MSG_STOP;
 	
 		}
 
-		boodschap += "]";
+		configMsg += "]";
 
 		String response;
 		if (proxy == null) {
@@ -101,7 +107,7 @@ public class DeviceCommunicator implements Serializable {
 
 		if (proxy.connectClientToServer()) {
 	
-			response = proxy.sendRequest("setConfig", boodschap);
+			response = proxy.sendRequest("setConfig", configMsg);
 			System.out.println("Response: " + response);
 
 		}

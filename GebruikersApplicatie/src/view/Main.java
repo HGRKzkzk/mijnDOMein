@@ -16,10 +16,10 @@ public class Main extends Application {
 
 	public static String FXMLLocation = "/view/";
 	private static Stage stage = new Stage();
-
-	public static Stage getStage() {
-		return stage;
-	}
+	private int horizontalresolution = 800;
+	private int verticalresolution = 600;
+	private String cssFile = "application.css";
+	private String title = "mijnD0Mein  >> ";
 
 	private static GebruikersApplicatie gebruikersApplicatie = new GebruikersApplicatie();
 
@@ -27,22 +27,19 @@ public class Main extends Application {
 
 		ControllerData.init();
 
-		int horizontalresolution = 800;
-		int verticalresolution = 600;
-
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+			Scene scene = new Scene(root, horizontalresolution, verticalresolution);
+			primaryStage.setTitle(title);
+			primaryStage.setScene(scene);
+			scene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
+			stage = primaryStage;
+			primaryStage.show();
+
 		} catch (IOException e1) {
-		 	e1.printStackTrace();
+
 		}
-		Scene scene = new Scene(root, horizontalresolution, verticalresolution);
-		primaryStage.setTitle("mijnD0Mein  >> ");
-		primaryStage.setScene(scene);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		stage = primaryStage;
-	  
-		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -66,6 +63,10 @@ public class Main extends Application {
 
 	public static void setGa(GebruikersApplicatie ga) {
 		Main.gebruikersApplicatie = ga;
+	}
+	
+	public static Stage getStage() {
+		return stage;
 	}
 
 }
