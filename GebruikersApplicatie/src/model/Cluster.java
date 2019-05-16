@@ -18,7 +18,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 	public Cluster(String name) {
 
 		changeName(name);
-		this.switchedOn = giveCurrentValue();
+		this.switchedOn = requestCurrentValue();
 
 	}
 
@@ -60,15 +60,10 @@ public class Cluster implements Serializable, Nameable, Switchable {
 	public String giveClusterContentsAsString() {
 
 		String str = "";
-
 		for (Device device : devicesInCLuster) {
-
 			str += device.getName() + ", ";
-
 		}
-
 		String contents = str.substring(0, str.length() - 2);
-
 		return contents;
 
 	}
@@ -100,7 +95,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 		} else
 
-		if (name == "" || name.isEmpty()) {
+		if (name.equals("") || name.isEmpty()) {
 			this.name = standardName;
 		}
 
@@ -115,14 +110,8 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		return false;
 	}
 
-	public void updateIsOn() { // TODO: overbodige checker, refactoreren, functionaliteit is zo dubbel.
-
-		this.switchedOn = giveCurrentValue();
-
-	}
-
 	@Override
-	public boolean giveCurrentValue() {
+	public boolean requestCurrentValue() {
 
 		int switchedonCount = 0;
 
@@ -137,9 +126,5 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		return false;
 
 	}
-	
-	
- 
-
 
 }

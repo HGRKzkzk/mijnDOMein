@@ -20,7 +20,7 @@ public class GebruikersApplicatie {
 	public GebruikersApplicatie() {
 
 		try {
-			setDeviceList(SerializeHandler.loadDeviceList());
+			// setDeviceList(SerializeHandler.loadDeviceList());
 			setClusterList(SerializeHandler.loadClusterList());
 		} catch (InvalidClassException | FileNotFoundException | ClassNotFoundException e1) {
 			// TODO Auto-generated catch block

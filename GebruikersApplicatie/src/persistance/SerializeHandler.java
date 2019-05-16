@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.ControllerData;
 import model.Device;
 import model.Cluster;
 import view.Main;

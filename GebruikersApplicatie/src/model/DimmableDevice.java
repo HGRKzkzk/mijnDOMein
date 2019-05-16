@@ -44,7 +44,7 @@ public class DimmableDevice extends AnalogDevice implements Dimmable, Serializab
 	}
 
 	@Override
-	public boolean giveCurrentValue() {
+	public boolean requestCurrentValue() {
 		// TODO Auto-generated method stub
 		return false;
 	}

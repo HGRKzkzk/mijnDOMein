@@ -18,7 +18,7 @@ import view.Main;
 
 public class ClusterController implements Initializable {
 
-	private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
+	// private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
 	private ArrayList<Cluster> clusterList = (ArrayList<Cluster>) ControllerData.clusterList;
 
 
@@ -59,7 +59,7 @@ public class ClusterController implements Initializable {
 		int i = 20;
 		for (Cluster cluster : clusterList) {
 
-			cluster.updateIsOn();
+			
 			Button clusterButton = new Button(cluster.getName());
 			clusterButton.setTranslateY(-200 + i);
 

@@ -15,11 +15,8 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	protected boolean activated;
 
 	public abstract boolean getSwitchedOn();
-
 	public abstract void setSwitchedOn(boolean b);
-
 	protected abstract void switchOn();
-
 	protected abstract void switchOff();
 
 	public Device(String name, int port) {
@@ -75,7 +72,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 		} else
 
-		if (name == "" || name.isEmpty()) {
+		if (name.equals("") || name.isEmpty()) {
 			this.name = standardName;
 		}
 

@@ -16,10 +16,10 @@ public class jSerialcomm {
 
 	public static String response;
 
-	private static String startChars = "<<";
-
-	private static String endChars = ">>";
-
+	private final static String BOM = "<";
+	private final static String EOM = ">";
+	private final static String DIVIDER = ",";
+	
 	public static void addListeners() {
 
 		// data available listener
@@ -113,7 +113,7 @@ public class jSerialcomm {
 
 	public static boolean sendProtocolData(int pin, int bank, int action) {
 
-		String pString = "<" + pin + "," + bank + "," + action + ">";
+		String pString = BOM + pin + DIVIDER + bank + DIVIDER + action + EOM;
 		byte[] bytesToWrite = pString.getBytes();
 		if (comPort != null) {
 			comPort.writeBytes(bytesToWrite, bytesToWrite.length);
@@ -145,7 +145,7 @@ public class jSerialcomm {
 
 	public static boolean requestInitialStatus(int pin, int bank, int action) {
 
-		String pString = "<" + pin + "," + bank + "," + action + ">";
+		String pString = BOM + pin + DIVIDER + bank + DIVIDER + action + EOM;
 		byte[] bytesToWrite = pString.getBytes();
 		if (comPort != null) {
 			comPort.writeBytes(bytesToWrite, bytesToWrite.length);
